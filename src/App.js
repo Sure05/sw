@@ -6,6 +6,7 @@ import {
 import Home from "./App/Pages/Home";
 import {Menu} from "semantic-ui-react";
 import Films from "./App/Pages/Films";
+import People from "./App/Pages/People";
 
 const routes = [
 	{
@@ -18,6 +19,11 @@ const routes = [
 		path: '/films',
 		component: () => <Films />,
 		name: 'Films'
+	},
+	{
+		path: '/peoples',
+		component: () => <People />,
+		name: 'People'
 	},
 ]
 

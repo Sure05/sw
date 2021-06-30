@@ -46,7 +46,7 @@ const swApiModule = (function () {
 					queryObject = arguments[0];
 				}
 			}
-			
+			console.log(queryObject)
 			if (queryObject) {
 				let searchParams = new URLSearchParams();
 				for (let key of Object.keys(queryObject)) {

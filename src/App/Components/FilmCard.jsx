@@ -1,12 +1,14 @@
 import React from 'react';
+import {Card} from "semantic-ui-react";
 
 function FilmCard(props) {
 	const {film} = props
 	return (
-		<div>
-			{film.title}
-			{film.release_date}
-		</div>
+		<Card fluid raised={true}>
+			<Card.Content header={`Episode ${film.episode_id}: ${film.title}`} />
+			<Card.Content description={film.opening_crawl} />
+			<Card.Content extra>{film.release_date}</Card.Content>
+		</Card>
 	);
 }
 
