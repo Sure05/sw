@@ -5,7 +5,7 @@ import {fetchPeoples} from "../Store/People";
 import {Dimmer, Grid, Loader, Pagination} from "semantic-ui-react";
 import PeopleCard from "../Components/PeopleCard";
 
-function People(props) {
+function People() {
 	const {peoples, pagination, loading} = useSelector(state => state.people);
 	const {currentPage, totalPages} = pagination;
 	const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function People(props) {
 	} else {
 		return (
 			<Fragment>
-				<Grid columns={3} padded>
+				<Grid stackable columns={3} padded>
 					{peoples.map(el =>
 						<Grid.Column key={el.id}>
 							<PeopleCard people={el}/>

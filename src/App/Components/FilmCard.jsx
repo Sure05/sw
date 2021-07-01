@@ -1,11 +1,13 @@
 import React from 'react';
 import {Card} from "semantic-ui-react";
+import {Link, useLocation, useHistory} from "react-router-dom";
 
 function FilmCard(props) {
-	const {film} = props
+	const {film} = props;
+	const location = useLocation();
 	return (
 		<Card fluid raised={true}>
-			<Card.Content header={`Episode ${film.episode_id}: ${film.title}`} />
+			<Link to={`/films/${film.episode_id}`}><Card.Content header={`Episode ${film.episode_id}: ${film.title}`} /></Link>
 			<Card.Content description={film.opening_crawl} />
 			<Card.Content extra>{film.release_date}</Card.Content>
 		</Card>

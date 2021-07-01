@@ -3,7 +3,7 @@ import swApiModule from "../api";
 import {getId} from "../Helper/helper";
 
 export const fetchPeoples = createAsyncThunk(
-	'fetchPeoples',
+	'people/fetchPeoples',
 	async (page) => {
 		return await swApiModule.getPeople({page})
 	}
@@ -27,7 +27,6 @@ const peopleSlice = createSlice({
 			state.loading = true
 		},
 		[fetchPeoples.fulfilled]: (state, action) => {
-			console.log(action.payload)
 			const {next, previous, count, results} = action.payload;
 			state.loading = false;
 			if(count > 10) {

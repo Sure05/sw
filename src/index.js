@@ -10,12 +10,12 @@ import {BrowserRouter as Router} from "react-router-dom"
 import 'semantic-ui-css/semantic.min.css'
 
 ReactDOM.render(
-	<Provider store={store}>
-		<Router>
+	<Router>
+		<Provider store={store}>
 			<App/>
-		</Router>
-	</Provider>,
-	document.getElementById('root')
+		</Provider>
+	</Router>,
+document.getElementById('root')
 );
 
 // If you want to start measuring performance in your App, pass a function
