@@ -7,24 +7,32 @@ import Home from "./App/Pages/Home";
 import {Menu} from "semantic-ui-react";
 import Films from "./App/Pages/Films";
 import People from "./App/Pages/People";
-import Modal from "./App/Components/Modal";
+import SinglePeople from "./App/Pages/SinglePeople";
 
 const routes = [
 	{
 		path: '/',
 		exact: true,
 		component: () => <Home />,
-		name: 'Home'
+		name: 'Home',
+		hasLink: true
 	},
 	{
 		path: '/films',
 		component: () => <Films />,
-		name: 'Films'
+		name: 'Films',
+		hasLink: true
+	},
+	{
+		path: '/people/:id',
+		component: () => <SinglePeople />,
 	},
 	{
 		path: '/peoples',
 		component: () => <People />,
-		name: 'People'
+		name: 'People',
+		exact: true,
+		hasLink: true
 	},
 ]
 
@@ -39,39 +47,22 @@ function App() {
 		<Fragment>
 			<Menu>
 				{routes.map((route, index) => (
-					<Menu.Item
-						key={index}
-						name={route.name.toLowerCase()}
-						active={location.pathname === route.path}
-					>
-						<Link to={route.path}>
-							{route.name}
-						</Link>
-					</Menu.Item>
+					<Fragment>
+					{route.hasLink ?
+						<Menu.Item
+							key={index}
+							name={route.name.toLowerCase()}
+							active={location.pathname === route.path}
+						>
+							 <Link to={route.path}>
+								{route.name}
+							</Link>
+						</Menu.Item>
+					: ''}
+					</Fragment>
 				))}
 			</Menu>
 			<Switch>
-				<Route
-					path={`/films/:id`}
-					render={() => {
-						let params = useParams();
-						return (
-							<Modal
-								onClick={back}
-							>
-								<div
-									style={{
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "center",
-										height: "100%",
-									}}
-								>
-									Edit Profile Modal!
-								</div>
-							</Modal>
-						);
-					}} />
 				{routes.map((route, index) => (
 					<Route
 						key={index}

@@ -1,11 +1,12 @@
 import React from 'react';
 import {Card, List} from "semantic-ui-react";
+import {Link} from "react-router-dom";
 
 function PeopleCard(props) {
 	const {people} = props
 	return (
 		<Card fluid raised={true}>
-			<Card.Content header={people.name} />
+			<Card.Content header={<Link to={`/people/${people.id}`}>{people.name}</Link>} />
 			<Card.Content description={
 				<List>
 					<List.Item>Birth year: {people.birth_year}</List.Item>
@@ -15,8 +16,6 @@ function PeopleCard(props) {
 					<List.Item>Skin color: {people.skin_color}</List.Item>
 				</List>
 			} />
-			{/*<Card.Content extra>Gender: {people.gender}</Card.Content>*/}
-			{/*<Card.Content extra>Eye color: {people.eye_color}</Card.Content>*/}
 		</Card>
 	);
 }
