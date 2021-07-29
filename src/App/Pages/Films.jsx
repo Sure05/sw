@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchFilms} from "../Store/Films";
-import {Route, useHistory, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import FilmCard from "../Components/FilmCard";
 import {Grid} from "semantic-ui-react";
-import Modal from "../Components/Modal";
 
 function Films(props) {
 	const films = useSelector(state => state.films.films);

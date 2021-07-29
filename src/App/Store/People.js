@@ -4,9 +4,7 @@ import {getId} from "../Helper/helper";
 
 export const fetchPeoples = createAsyncThunk(
 	'people/fetchPeoples',
-	async (page) => {
-		return await swApiModule.getPeople({page})
-	}
+	async () => await swApiModule.get('people').then(res => res.data).catch(error => error)
 )
 
 const peopleSlice = createSlice({
@@ -28,6 +26,7 @@ const peopleSlice = createSlice({
 		},
 		[fetchPeoples.fulfilled]: (state, action) => {
 			const {next, previous, count, results} = action.payload;
+			console.log(results)
 			state.loading = false;
 			if(count > 10) {
 				const nextPage = getId(next) ?? null;
