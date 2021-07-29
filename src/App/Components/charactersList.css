@@ -1,3 +1,9 @@
 .ui.card.charactersList {
     min-height: 150px;
+
+}
+.ui.card.charactersList > .content .list {
+    max-height: 500px;
+    overflow: auto;
+    margin-top: 15px;
 }

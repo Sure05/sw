@@ -3,6 +3,7 @@ import {Card, Dimmer, List, Loader} from "semantic-ui-react";
 import swApiModule from "../api";
 
 import './charactersList.css'
+import {getId} from "../Helper/helper";
 
 const getSinglePeople = async (id) => {
 	return await swApiModule.get(`people/${id}`).then(res => res.data).catch(error => error)
@@ -12,8 +13,7 @@ function CharacterList(props) {
 	const [charactersList, setCharactersList] = useState([]);
 	useEffect(async () => {
 		const characters = props.characters.map(data => {
-			const urlArray = data.split('/');
-			const id = urlArray[urlArray.length - 2]
+			const id = getId(data)
 			return getSinglePeople(id)
 		})
 		const list = await Promise.all(characters).then(res => res);
