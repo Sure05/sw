@@ -2,9 +2,18 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
 import swApiModule from "../api";
 import {getId} from "../Helper/helper";
 
+const url = 'people';
+
+
+
 export const fetchPeoples = createAsyncThunk(
 	'people/fetchPeoples',
-	async () => await swApiModule.get('people').then(res => res.data).catch(error => error)
+	async (page = null) => {
+		let additionalData = '';
+		if(page !== null)
+			additionalData += `?page=${page}`
+		return await swApiModule.get(`${url}${additionalData}`).then(res => res.data)
+	}
 )
 
 const peopleSlice = createSlice({
@@ -26,7 +35,6 @@ const peopleSlice = createSlice({
 		},
 		[fetchPeoples.fulfilled]: (state, action) => {
 			const {next, previous, count, results} = action.payload;
-			console.log(results)
 			state.loading = false;
 			if(count > 10) {
 				const nextPage = getId(next) ?? null;

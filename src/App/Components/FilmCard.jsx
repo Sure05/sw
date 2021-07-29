@@ -1,12 +1,17 @@
 import React from 'react';
-import {Card} from "semantic-ui-react";
+import {Card, Header} from "semantic-ui-react";
 import {Link} from "react-router-dom";
+
+import './FilmCard.css'
+
 
 function FilmCard(props) {
 	const {film} = props;
 	return (
 		<Card fluid raised={true}>
-			<Link to={`/films/${film.episode_id}`}><Card.Content header={`Episode ${film.episode_id}: ${film.title}`} /></Link>
+			<Header as='h3' className="headerStyle">
+				<Link to={`/films/${film.episode_id}`}><Card.Content header={`Episode ${film.episode_id}: ${film.title}`} /></Link>
+			</Header>
 			<Card.Content description={film.opening_crawl} />
 			<Card.Content extra>{film.release_date}</Card.Content>
 		</Card>

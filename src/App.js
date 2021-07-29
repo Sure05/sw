@@ -10,34 +10,6 @@ import People from "./App/Pages/People";
 import SinglePeople from "./App/Pages/SinglePeople";
 import SingleFilm from "./App/Pages/SingleFilm";
 
-const routes = [
-
-    {
-        path: '/films',
-        component: () => <Films/>,
-        name: 'Films',
-        hasLink: true
-    },
-    /*{
-        path: '/people/:id',
-        component: () => <SinglePeople />,
-    },*/
-    {
-        path: '/peoples',
-        component: () => <People/>,
-        name: 'People',
-        exact: true,
-        hasLink: true
-    },
-    {
-        path: '/',
-        exact: true,
-        component: () => <Home/>,
-        name: 'Home',
-        hasLink: true
-    },
-]
-
 function App() {
     const location = useLocation();
     return (
@@ -57,6 +29,14 @@ function App() {
                 >
                     <Link to='/films'>
                         Films
+                    </Link>
+                </Menu.Item>
+                <Menu.Item
+                    name={'People'}
+                    active={location.pathname === '/people'}
+                >
+                    <Link to='/people'>
+						People
                     </Link>
                 </Menu.Item>
             </Menu>
