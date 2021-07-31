@@ -2,14 +2,27 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
 import swApiModule from "../api";
 import {getId} from "../Helper/helper";
 
-export const fetchFilms = createAsyncThunk('films/fetchFilms', async () =>
-	await swApiModule.get('films').then(res => res.data.results).catch(error => error)
+const url = 'films';
+
+export const fetchFilms = createAsyncThunk('films/fetchFilms',
+	async (page = null) => {
+		let additionalData = '';
+		if(page !== null)
+			additionalData += `?page=${page}`
+		return await swApiModule.get(`${url}${additionalData}`).then(res => res.data)
+	}
 )
 
 const filmsSlice = createSlice({
 	name: 'films',
 	initialState: {
 		loading: false,
+		pagination: {
+			nextPage: null,
+			previousPage: null,
+			totalPages: 1,
+			currentPage: 1
+		},
 		films: [],
 		error: ''
 	},
@@ -21,11 +34,36 @@ const filmsSlice = createSlice({
 				state.films = [];
 			})
 			.addCase(fetchFilms.fulfilled, (state, action) => {
-				console.log(action)
+				console.log(action.payload)
+				const {next, previous, count, results} = action.payload;
 				state.loading = false;
-				state.films = [...action.payload].map( el => {
+				if(count > 10) {
+					const nextPage = getId(next) ?? null;
+					const previousPage = getId(previous) ?? null;
+					let currentPage = 1;
+					if(nextPage !== null) {
+						currentPage = nextPage - 1
+					} else {
+						if(previousPage !== null){
+							currentPage = previousPage + 1
+						}
+					}
+					state.pagination = {
+						...state.pagination,
+						nextPage,
+						previousPage,
+						totalPages: Math.ceil(count / 10 ),
+						currentPage
+					}
+				} else {
+					state.pagination = {
+						...state.pagination,
+						totalPages: 1
+					}
+				}
+				state.films = [...results].map(el => {
 					return {...el, id: getId(el.url)}
-				});
+				})
 			})
 			.addCase(fetchFilms.rejected, (state, action) => {
 				state.loading = false;

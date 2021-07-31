@@ -14,10 +14,10 @@ function People() {
 		dispatch(fetchPeoples(1))
 	}, [dispatch, location]);
 	
-	const handlePaginationChange = async (e, { activePage }) => {
+	const handlePaginationChange = async (e, {activePage}) => {
 		await dispatch(fetchPeoples(activePage))
 	}
-	if(loading) {
+	if (loading) {
 		return (
 			<Dimmer active inverted>
 				<Loader>Loading</Loader>
@@ -33,23 +33,23 @@ function People() {
 						</Grid.Column>
 					)}
 				</Grid>
-				<Grid columns={1} padded>
-					<Grid.Column>
-						<Pagination
-							boundaryRange={0}
-							ellipsisItem={null}
-							siblingRange={2}
-							onPageChange={handlePaginationChange}
-							activePage={currentPage}
-							totalPages={totalPages}
-						/>
-					</Grid.Column>
-				</Grid>
-			
+				{totalPages > 1 ? (
+					<Grid columns={1} padded>
+						<Grid.Column>
+							<Pagination
+								boundaryRange={0}
+								ellipsisItem={null}
+								siblingRange={2}
+								onPageChange={handlePaginationChange}
+								activePage={currentPage}
+								totalPages={totalPages}
+							/>
+						</Grid.Column>
+					</Grid>
+				) : <></>}
 			</Fragment>
 		);
 	}
-	
 }
 
 export default People;

@@ -80,6 +80,13 @@
 // export default swApiModule
 import axios from 'axios';
 
-export default axios.create({
+const swApi = axios.create({
 	baseURL: `https://swapi.dev/api/`
 });
+
+export const getSingleElement = async (type, id) => {
+	return await swApi.get(`${type}/${id}`).then(res => res.data).catch(error => error)
+};
+export default swApi
+
+
